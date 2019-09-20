@@ -19,11 +19,14 @@ import (
 	"strings"
 )
 
+const stopChar = "x"
+const sliceInitSize = 3
+
 func main() {
 	var input string
 
 	// Create an empty integer slice of size (length) 3
-	mySlice := make([]int, 0, 3)
+	mySlice := make([]int, 0, sliceInitSize)
 
 	// Keep looping until the user enters 'X' or 'x'
 	for true {
@@ -46,7 +49,7 @@ func main() {
 			input = ""
 		} else {
 			// Leave the loop if the user enters X or x
-			if input == "x" {
+			if input == stopChar {
 				break
 			}
 		}
