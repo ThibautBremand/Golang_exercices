@@ -47,7 +47,7 @@ func main() {
 		filename = scanner.Text()
 
 		// Open the text filename
-		file, err := os.Open("./" + filename)
+		file, err := os.Open(filename)
 		if err != nil {
 			log.Fatal(err)
 		}
