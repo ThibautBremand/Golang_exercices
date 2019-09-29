@@ -63,29 +63,12 @@ func (a Animal) Speak() string {
 func main() {
 
 	// Instanciate the Animal objects
-	cow := Animal{
-		food:       "grass",
-		locomotion: "walk",
-		noise:      "moo",
-	}
+	cow := Animal{"grass", "walk", "moo"}
+	bird := Animal{"worms", "fly", "peep"}
+	snake := Animal{"mice", "slither", "hsss"}
+	empty := Animal{"", "", ""}
 
-	bird := Animal{
-		food:       "worms",
-		locomotion: "fly",
-		noise:      "peep",
-	}
-
-	snake := Animal{
-		food:       "mice",
-		locomotion: "slither",
-		noise:      "hsss",
-	}
-
-	empty := Animal{
-		food:       "",
-		locomotion: "",
-		noise:      "",
-	}
+	var active Animal
 
 	// Loop to prompt the user
 	for true {
@@ -93,7 +76,6 @@ func main() {
 		scanner := bufio.NewScanner(os.Stdin)
 		if scanner.Scan() {
 			request := scanner.Text()
-
 			// Not case sensitive
 			splittedReq := strings.Split(strings.ToLower(request), sep)
 
@@ -104,18 +86,19 @@ func main() {
 
 				if currAnimal == "cow" || currAnimal == "bird" || currAnimal == "snake" {
 					// Switch case on the animal name
-					moveFn := GenAnimalActionFn(empty)
+					active = empty
 					switch currAnimal {
 					// A generated function, depending upon the given animal, is set to moveFn
 					case "cow":
-						moveFn = GenAnimalActionFn(cow)
+						active = cow
 					case "bird":
-						moveFn = GenAnimalActionFn(bird)
+						active = bird
 					case "snake":
-						moveFn = GenAnimalActionFn(snake)
+						active = snake
 					}
 
 					// Call the generated function with the action as parameter
+					moveFn := GenAnimalActionFn(active)
 					fmt.Println(moveFn(currAction))
 				}
 			}
@@ -133,11 +116,11 @@ func main() {
 func GenAnimalActionFn(a Animal) func(move string) string {
 	return func(move string) string {
 		switch move {
-		case "food":
+		case "eat":
 			return a.Eat()
-		case "locomotion":
+		case "move":
 			return a.Move()
-		case "noise":
+		case "speak":
 			return a.Speak()
 		}
 		return ""
