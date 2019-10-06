@@ -39,7 +39,7 @@ import (
 )
 
 func f(from string, x *int) {
-	*x = *x + 1
+    *x = *x + 1
     fmt.Println(from, ":", *x)
 }
 
@@ -47,7 +47,7 @@ func main() {
 	x := 0
 
     go f("goroutine 1", &x)
-	go f("goroutine 2", &x)
+    go f("goroutine 2", &x)
 
     time.Sleep(time.Second)
     fmt.Println("done")
